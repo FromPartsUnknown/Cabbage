@@ -26,7 +26,7 @@ Cabbage currently provides the following analysis capabilities for Solaris 10 im
 4. **Executable Path List (`--exec-path`)**: 
     *  Obtains a list of executable paths for all scheduled threads at time of core dump.
     * To verify the integrity of each executable identified:
-        * Obtain the executable binary using '/proc/<pid>/path/a.out'
+        * Obtain the executable binary from compromised system
         * On a trusted Solaris system with unmodified package metadata run: '/usr/sbin/pkgchk -l -p /full/path/to/executable'
 
 ## Prerequisites

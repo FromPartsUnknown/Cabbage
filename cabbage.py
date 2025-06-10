@@ -114,7 +114,7 @@ class DebugAgent:
             if o == '/':
                 continue
             print(o)
-        print("[*] To verify the integrity of each executable identified:\n\t1. Obtain executable binary using '/proc/<pid>/path/a.out'\n\t2. On a trusted Solaris system with unmodified package metadata run: '/usr/sbin/pkgchk -l -p /full/path/to/executable'")
+        print("[*] To verify the integrity of each executable identified:\n\t1. Obtain executable binary from compromised system\n\t2. On a trusted Solaris system with unmodified package metadata run: '/usr/sbin/pkgchk -l -p /full/path/to/executable'")
              
     def diff_address_list(self, verbose=False):
         print("[*] Building a list of all functions from symbol list")
