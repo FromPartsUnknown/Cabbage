@@ -104,7 +104,18 @@ class DebugAgent:
             print("[!] Modification Detected! Address: %s:\n[MEM:  %s]\n[DISK: %s]\n" % (address, out_mem, out_disk))
             return True
         return False
-    
+
+    def print_thread_exec_path(self, verbose):
+        print("[*] Executable path for all scheduled threads at time of core dump:")
+        cmd = "::walk thread | ::print kthread_t t_procp | ::print proc_t p_exec | ::vnode2path"
+        output = self._mdb.send_cmd(cmd)
+        output = list(set(o.strip() for o in output))
+        for o in output:
+            if o == '/':
+                continue
+            print(o)
+        print("[*] To verify the integrity of each executable identified:\n\t1. Obtain executable binary using '/proc/<pid>/path/a.out'\n\t2. On a trusted Solaris system with unmodified package metadata run: '/usr/sbin/pkgchk -l -p /full/path/to/executable'")
+             
     def diff_address_list(self, verbose=False):
         print("[*] Building a list of all functions from symbol list")
         addr_list = self.get_func_address_list()
@@ -136,6 +147,7 @@ def main():
     parser.add_option("-k", "--image-file",   dest="image_file",   help="Path to kernel object file, eg. /storage/var/crash/unix.0")
     parser.add_option("-v", "--verbose",      dest="verbose",      action="store_true", default=False)
     parser.add_option("-r", "--route-cache",  dest="route_cache",  action="store_true", default=False, help="Print route cache table")
+    parser.add_option("-e", "--exec-path",  dest="exec_path",  action="store_true", default=False, help="Print a list of executable paths for all scheduled threads at time of dump. You should check the integrity of each executable with pkgchk -l")
     parser.add_option("-s", "--syscall_diff", dest="syscall_diff", action="store_true", default=False, help="Compare in-memory values of all syscall entries to on-disk syscall entries")
     parser.add_option("-a", "--func_addr_diff", dest="func_addr_diff", action="store_true", default=False, help="Compare in-memory 16 byte value of all kernel functions to on-disk kernel function values. Function list generated from symbol table")
     (options, args) = parser.parse_args()
@@ -143,7 +155,7 @@ def main():
     if not options.core_file or not options.image_file:
         parser.error("Both --core-file and --image-file are required.")
         
-    if not (options.route_cache or options.syscall_diff or options.func_addr_diff):
+    if not (options.route_cache or options.syscall_diff or options.func_addr_diff or options.exec_path):
         print("[-] No action specified.\n")
         parser.print_help()
         exit(1)
@@ -151,6 +163,8 @@ def main():
     try:
         mdb = MDBCommand(options.image_file, options.core_file)
         dbg = DebugAgent(mdb)
+        if options.exec_path:
+            dbg.print_thread_exec_path(verbose=options.verbose)
         if options.route_cache:
             dbg.print_route_cache_entries()
         if options.syscall_diff:

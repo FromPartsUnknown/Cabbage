@@ -23,6 +23,12 @@ Cabbage currently provides the following analysis capabilities for Solaris 10 im
     *   For each function, compare 16 bytes of its in-memory kernel function against 16 bytes from the object file location corresponding to the given kernel function.
     *   Differences can indicate that arbitrary kernel functions have been modified, a indication of sophisticated kernel-level rootkits attempting to alter system behavior or maintain persistence.
 
+4. **Executable Path List (`--exec-path`)**: 
+    *  Obtains a list of executable paths for all scheduled threads at time of core dump.
+    * To verify the integrity of each executable identified:
+        * Obtain the executable binary using '/proc/<pid>/path/a.out'
+        * On a trusted Solaris system with unmodified package metadata run: '/usr/sbin/pkgchk -l -p /full/path/to/executable'
+
 ## Prerequisites
 
 1.  **A Kernel Core Dump and Image:** Generated as described below (e.g., `vmcore.0` and `unix.0` from a Solaris 10 system).
