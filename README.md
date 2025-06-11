@@ -2,6 +2,7 @@
 
 ## Overview
 ![Solaris 10](https://img.shields.io/badge/OS-Solaris_10-orange.svg)
+
 Cabbage is a simple python-based wrapper designed to automate and simplify post-mortem analysis of **Solaris 10** kernel crash dumps. Cabbage leverages the `mdb` (Modular Debugger), a general purpose debugging tool for Solaris, to analyse Solaris 10 crash dumps and  uncover evidence of rootkits and malicious activity. 
 
 When a host is suspected of being compromised a critical step is to preserve evidence. For a Solaris 10 system this can involve generating a live crash dump and collecting the corresponding kernel core and object file. Cabbage aids in the analyse these artefacts by interacting directly with the Modular Debugger `mdb` and automates commands to detect Kernel integrity issues. 
