@@ -2,7 +2,7 @@
 ![Solaris 10](https://img.shields.io/badge/OS-Solaris_10-orange.svg)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1c9b904f-8f53-47dd-a054-0217460b7085"/>
+  <img src="https://github.com/user-attachments/assets/099c7199-dea2-408f-b588-7816bbd27377"/>
 </p>
 
 ## Overview
