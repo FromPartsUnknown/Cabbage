@@ -1,6 +1,10 @@
 # Cabbage: Solaris Rootkit Detection Tool
 ![Solaris 10](https://img.shields.io/badge/OS-Solaris_10-orange.svg)
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1c9b904f-8f53-47dd-a054-0217460b7085"/>
+</p>
+
 ## Overview
 
 Cabbage is a simple python-based wrapper designed to automate and simplify post-mortem analysis of **Solaris 10** kernel crash dumps. Cabbage leverages the `mdb` (Modular Debugger), a general purpose debugging tool for Solaris, to analyse Solaris 10 crash dumps and  uncover evidence of rootkits and malicious activity. 
